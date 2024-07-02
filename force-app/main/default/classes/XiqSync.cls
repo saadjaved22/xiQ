@@ -1,6 +1,6 @@
 /*
 Author        	| Date             		| Description
-Abdullah        | 3/12/2020  	  | Release 1.1
+Saad Javed        | 3/12/2020  	  | Release 1.1
 */
 
 public without sharing class XiqSync {
