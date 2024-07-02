@@ -1,6 +1,6 @@
 /*
 Author         | Date             | Description
-Abdullah       | 14/10/2020  	  | Release 1.1
+Saad Javed       | 14/10/2020  	  | Release 1.1
 */
 
 @deprecated
@@ -118,7 +118,7 @@ global without sharing class BatchSyncMultipleLoginToXIQ implements Database.Bat
         
         List<Messaging.SingleEmailMessage> allMails = new List<Messaging.SingleEmailMessage>();  
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        String[] toAddresses = new String[] {a.CreatedBy.Email,'abdullah','saad','adeel','hasham'};
+        String[] toAddresses = new String[] {a.CreatedBy.Email,'Saad Javed','saad','adeel','hasham'};
         mail.setToAddresses(toAddresses);
         mail.setSubject('Syncing Users to xiQ ' + a.Status);
         String emailBody = 'Hello,\r\n\r\n';
