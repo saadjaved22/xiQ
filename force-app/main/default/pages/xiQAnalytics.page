@@ -1,0 +1,79 @@
+<!-- 
+Author                      | Date        | Description
+Hasham Tahir   | 08/01/2019  | Initial Creation of Class
+-->
+
+<apex:page standardController="Contact" extensions="XIQSearchController" showheader="true" sidebar="true" action="{!generateURLS}">
+    
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+        
+        <apex:includeScript value="{!$Resource.xiQJquery}"/>
+        
+        <script>
+        $(document).ready(function() {  
+            var isdisplayButton = '{!JSENCODE(buttonHideShowString)}';
+        });
+        
+        function reloadParentWindow(){
+            window.top.location.href = '{!JSENCODE(redirectUrl)}';
+        }
+        
+        </script>
+        
+        <style>
+            .frame {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0 none;
+            box-sizing: border-box;
+            }
+            ::-webkit-scrollbar {
+            width: 0px;  /* remove scrollbar space */
+            background: transparent;  /* optional: just make scrollbar invisible */
+            }
+            
+            
+        </style>
+    </head>
+    
+    <div class="slds-scope">
+        
+        <apex:form id="formID">
+            <!-- <apex:actionFunction name="callgenerateURLS" action="{!insertOrUpdateToken}" rerender="none" /> -->
+            <apex:outputPanel rendered="{!showContent}">
+                <div class="demo-only" style="height: 4rem;">
+                    <div class="slds-notify_container slds-is-relative">
+                        <div class="slds-notify slds-notify_toast slds-theme_{!HTMLENCODE(successError)}" role="alert">
+                            <span class="slds-assistive-text">{!HTMLENCODE(successError)}</span>
+                            <span class="slds-icon_container slds-icon-utility-{!HTMLENCODE(successError)} slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#{!HTMLENCODE(successError)}" />
+                                </svg>
+                            </span>
+                            <div class="slds-notify__content">
+                                <h2 class="slds-text-heading_small ">{!HTMLENCODE(msg)}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!!showContent}">
+                <apex:outputText rendered="{!buttonHideShow}" value="{!customLabelValue}" styleClass="slds-text-heading_small"> 
+                </apex:outputText>
+                <!--<apex:commandButton action="{!insertOrUpdateToken}" styleClass="slds-button slds-button_brand" rendered="{!buttonHideShow}" value="Get Stats Details"  oncomplete="reloadParentWindow();" rerender="formID" />-->
+                <iframe class="frame" src="{!apexqs}" scrolling="true" id="theIframe"/>
+            </apex:outputPanel> 
+            
+        </apex:form>  
+    </div>  
+</apex:page>
