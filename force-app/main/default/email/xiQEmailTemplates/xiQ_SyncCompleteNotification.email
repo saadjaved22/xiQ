@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="telephone=no" name="format-detection">
+    <title></title>
+    <!--[if (mso 16)]>
+    <style type="text/css">
+    a {text-decoration: none;}
+    </style>
+    <![endif]-->
+    <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
+</head>
+
+<body>
+    <div class="es-wrapper-color">
+        <!--[if gte mso 9]>
+			<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+				<v:fill type="tile" color="#E5E5E5"></v:fill>
+			</v:background>
+		<![endif]-->
+        <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td class="esd-email-paddings" valign="top">
+                        <table class="es-content esd-header-popover" cellspacing="0" cellpadding="0" align="center">
+                            <tbody>
+                                <tr>
+                                    <td class="esd-stripe" align="center" bgcolor="#E5E5E5" style="background-color: #e5e5e5;">
+                                        <table class="es-content-body" width="600" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="background-color: #ffffff;">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="esd-structure es-p40t es-p40r es-p40l es-m-p0r es-m-p0l" align="left" bgcolor="#ffffff" style="background-color: #ffffff;">
+                                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="esd-container-frame" width="520" valign="top" align="center">
+                                                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-image es-p20b es-p25r es-p25l" style="font-size: 0px;"><a target="_blank"><img src="https://xiq-email-static.s3-us-west-2.amazonaws.com/11ceb038bdae4b28975b1ab9d0a00a0c/lib/pluginId_11ceb038bdae4b28975b1ab9d0a00a0c_email_201/84181602226701233.png" alt style="display: block;" width="46"></a></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="center" class="esd-block-text es-p20t es-p25r es-p25l">
+                                                                                        <h1 style="color: #001760; font-size: 20px;">xiQ Sync Report</h1>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p25t es-p20b es-p25r es-p25l">
+                                                                                        <p style="color: #000000;">The xiQ for Salesforce package has been installed and has completed batch to sync Accounts and Users from "<strong>Salesforce</strong>" to "<strong>xiQ</strong>".</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p20t es-p25r es-p25l">
+                                                                                        <p style="color: #000000;">User details:</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p10t es-p25r es-p25l">
+                                                                                        <p style="color: rgba(0, 0, 0, 0.64);">Total users processed: <span style="color:#1EC052;font-size:16px;">totalUsers</span></p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p5t es-p25r es-p25l">
+                                                                                        <p style="color: rgba(0, 0, 0, 0.64);">Total success count: <span style="color:#1EC052;font-size:16px;">successUsers</span></p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p20t es-p25r es-p25l">
+                                                                                        <p style="color: #000000;">Synced Users:</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p5t es-p25r es-p25l">
+                                                                                        <p style="color: #1ec052; font-size: 12px;">successUserList<br><br></p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                              
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p20t es-p25r es-p25l">
+                                                                                        <p style="color: #000000;"><br></p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p15t es-p25r es-p25l">
+                                                                                        <p style="color: #000000;">Account details:</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p10t es-p25r es-p25l">
+                                                                                        <p style="color: rgba(0, 0, 0, 0.64);">Total records processed: <span style="color:#1EC052;font-size:16px;">totalAcc</span></p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" class="esd-block-text es-p5t es-p25r es-p25l">
+                                                                                        <p style="color: rgba(0, 0, 0, 0.64);">Processed records with xiQ CompanyId: <span style="color:#1EC052;font-size:16px;">successAcc</span></p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table cellpadding="0" cellspacing="0" class="esd-footer-popover es-footer" align="center">
+                            <tbody>
+                                <tr>
+                                    <td class="esd-stripe" align="center" bgcolor="#e5e5e5" style="background-color: #e5e5e5;">
+                                        <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" width="600">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="esd-structure es-p5t es-p25b es-p20r es-p20l es-m-p0r es-m-p0l" align="left">
+                                                        <table cellpadding="0" cellspacing="0" width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="560" class="esd-container-frame" align="center" valign="top">
+                                                                        <table cellpadding="0" cellspacing="0" width="100%">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="center" class="esd-block-spacer es-p40t es-p25b es-p25r es-p25l" style="font-size:0">
+                                                                                        <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td style="border-bottom: 1px solid #cccccc; background:none; height:1px; width:100%; margin:0px 0px 0px 0px;"></td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="center" class="esd-block-text es-m-txt-c es-p25r es-p25l">
+                                                                                        <p style="color: rgba(0, 0, 0, 0.4); font-size: 12px;">© 2020 xiQ, Inc. All rights reserved.</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="center" class="esd-block-text es-m-txt-c es-p5t es-p25r es-p25l">
+                                                                                        <p style="color: rgba(0, 0, 0, 0.4); font-size: 12px;">100 Redwood Shores Parkway,<br>Suite 100 Redwood City, CA 94065, USA</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

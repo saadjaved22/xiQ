@@ -1,0 +1,12 @@
+Hi,
+
+Error generated in {!Organization.Name}, Org. ID :  {!Organization.Id}.
+
+Error Details:
+
+Line Number : {!lineno}
+Error Type : {!errtype}
+Error Description : {!errdesc}
+
+Thanks,
+xiQ for Salesforce

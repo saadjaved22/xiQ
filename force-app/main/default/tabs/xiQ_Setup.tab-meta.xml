@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <icon>Xiq_Logo/xiQLogo.png</icon>
+    <label>xiQ Setup</label>
+    <motif>Custom331: TV Widescreen</motif>
+    <page>XIQSetupPage</page>
+</CustomTab>

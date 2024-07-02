@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>xiQ_SyncCompleteNotification</name>
+    <style>none</style>
+    <subject>xiQ Setup - Completed</subject>
+    <textOnly>Hello,
+
+The xiQ for Salesforce package has been installed and has completed batch to sync Accounts and Users from &quot;Salesforce&quot; to &quot;xiQ&quot;.
+
+User details:
+
+Total users processed: 23
+
+Total success count: 23
+
+Account details:
+
+Total records processed: 23
+
+Processed records with xiQ CompanyId: 10
+
+© 2020 xiQ, Inc. All rights reserved.
+
+100 Redwood Shores Parkway,
+Suite 100 Redwood City, CA 94065, USA</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
