@@ -4,19 +4,17 @@ Saad Javed       | 14/10/2020  	  | Release 1.1
 */
 
 @deprecated
-global without sharing class BatchSyncCompaniesToXIQ implements Database.Batchable<sObject>,Database.AllowsCallouts,Database.Stateful{
-    
-    @deprecated   
-    global xiQ_Token__c objToken;
-    @deprecated
-    global xiQ_Tokens__c objTokn;
-    global xiQIncSF1__xiQ_User_Tokens__c token;
-    global Integer totalCount;
-    global Integer successCount;
-    
-    
-    global BatchSyncCompaniesToXIQ(){
-        /**
+global without sharing class BatchSyncCompaniesToXIQ implements Database.Batchable<sObject>, Database.AllowsCallouts, Database.Stateful {
+  @deprecated
+  global xiQ_Token__c objToken;
+  @deprecated
+  global xiQ_Tokens__c objTokn;
+  global xiQIncSF1__xiQ_User_Tokens__c token;
+  global Integer totalCount;
+  global Integer successCount;
+
+  global BatchSyncCompaniesToXIQ() {
+    /**
         try{
             totalCount =0;
             successCount = 0;
@@ -29,19 +27,17 @@ global without sharing class BatchSyncCompaniesToXIQ implements Database.Batchab
             System.debug('Error in line 26');
         }
 	**/
-    }
-    
-    //Querying all Accounts
-    global Database.QueryLocator start(Database.BatchableContext BC){
-        
-        string query = 'Select Id, Name, Website from Account WHERE Website != null'; //XIQ_Company_ID__c = null AND
-        return Database.getQueryLocator(query);
-		
-    }
+  }
 
-    //Which sync accounts from salesforce to XIQ and update XIQ Company ID.
-    global void execute(Database.BatchableContext BC, List<sObject> scope){
-        /**
+  //Querying all Accounts
+  global Database.QueryLocator start(Database.BatchableContext BC) {
+    string query = 'Select Id, Name, Website from Account WHERE Website != null'; //XIQ_Company_ID__c = null AND
+    return Database.getQueryLocator(query);
+  }
+
+  //Which sync accounts from salesforce to XIQ and update XIQ Company ID.
+  global void execute(Database.BatchableContext BC, List<sObject> scope) {
+    /**
         try{
             
             Set<ID> accountIdsSet = new Set<ID>();
@@ -59,11 +55,11 @@ global without sharing class BatchSyncCompaniesToXIQ implements Database.Batchab
             successCount -=scope.size(); 
         }
 		**/
-    }
+  }
 
-    // Sending an email when Syncing of 20 records is completed with the total count, Success and Error count.
-    global void finish(Database.BatchableContext BC){
-        /**
+  // Sending an email when Syncing of 20 records is completed with the total count, Success and Error count.
+  global void finish(Database.BatchableContext BC) {
+    /**
         AsyncApexJob a = [Select Id, Status, CreatedBy.Email from AsyncApexJob where Id =:BC.getJobId() LIMIT 100];
       
         List<Account> acclist = new List<Account>([SELECT ID FROM Account WHERE  XIQ_Company_ID__c != null LIMIT 100 ]);
@@ -90,5 +86,5 @@ global without sharing class BatchSyncCompaniesToXIQ implements Database.Batchab
                 
         }
 		**/
-    }
+  }
 }
