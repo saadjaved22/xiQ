@@ -2,320 +2,543 @@
 Author                      | Date        | Description
 Techila Global Services     | 07/11/2018  | Initial Creation of Class
 -->
-<apex:page title="xiQ Setup" controller="XIQSetupController" tabStyle="XIQ_Setup__tab" showHeader="true" standardStylesheets="false" sidebar="true" applyHtmlTag="true" applyBodyTag="false" docType="html-5.0">
-    
-    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
-        <head>
-            <meta charset="utf-8" />
-            <meta http-equiv="x-ua-compatible" content="ie=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-       
-            <!-- Import the Design System style sheet -->
-            <apex:slds />
-            <style>
-                #t1 tr:nth-child(even){background-color: #f2f2f2;}
-                #t1 tr:hover {background-color: #ddd;}
-                
-                #t1 tr:hover{background-color:#e3f3ff;}
-                .prog-bar {
-                height: 14px;
-                margin: 3px;
-                padding: 0px;
-                padding-right:3px;
-                background: #FFA037;
-                text-align:right;
-                font-size:12px;
-                font-weight:bold;
-                color:#333333;
-                }
-                
-                .prog-bar-done {
-                height: 14px;
-                margin: 3px;
-                padding: 0px;
-                padding-right:3px;
-                background: #C9DDEC;
-                }
-                
-                .prog-border {
-                width: 209px;
-                background: #fff;
-                border: 1px solid silver;
-                margin: 0px;
-                padding: 0px;
-                }
-                .button {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                transition-duration: 0.4s;
-                cursor: pointer;
-                }
-                .button1:hover {
-                background-color: #4CAF50;
-                color: white;
-                }
-                
-                
-                
-            </style>
-            <script>
-            function openSetupPage() {
-                
-                var packID = '{!packageID}';
-                var currentDomain = '{!urlInstance}';
-                if(isLightningExperienceOrSalesforce1()) {
-                    window.open(currentDomain +".lightning.force.com/lightning/setup/Package/0331H000000hEWr/UserLicenses/"+packID+"/view");
-                }else {
-                    
-                    window.open(currentDomain + ".my.salesforce.com/ui/setup/mfpackage/UserLicenses/d?allPackageId=0331H000000hEWr&packageLicenseId="+packID+"&retURL=%2F0A3%3Fsetupid%3DImportedPackage%26retURL%3D%252Fui%252Fsetup%252FSetup%253Fsetupid%253DStudio");
-                    
-                }
-                
-            }
-            function isLightningExperienceOrSalesforce1() {
-                return((typeof sforce != 'undefined') && sforce && (!!sforce.one));
-            }
-            
-            function openAccRecord(ID) {
-                var currentDomain = '{!urlInstance}';
-                var recordID = ID;
-                
-                if(isLightningExperienceOrSalesforce1()) {
-                    window.open(currentDomain +".lightning.force.com/lightning/r/Account/"+recordID+"/view");
-                }else {
-                    window.open(currentDomain + ".my.salesforce.com/"+recordID);
-                    
-                }
-                
-            }
-            
-            </script>
-        </head>
-        <body>
-            
-            <!-- REQUIRED SLDS WRAPPER -->
-            <div class="slds-scope">
-                <div class="slds-page-header">
-                    <div class="slds-media">
-                        <div class="slds-media__figure">
-                            <span class="slds-icon_container" title="Description of icon when needed">
-                                <!--<svg class="slds-icon slds-page-header__icon" aria-hidden="true">-->
-                                <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.XiQ_Logo,'xiqIcSalesforce.png')}" />-->
-                                <img src="{!URLFOR($Resource.xiQ_Logo)}" width="30" height="30" />
-                                <!--</svg>-->
-                            </span>
-                        </div>
-                        <div class="slds-media__body">
-                            <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Rohde Corp - 80,000 Widgets">xiQ Setup</h1>
-                        </div>
-                    </div>
-                </div>
-                <apex:form id="f1" rendered="{!isAdmin}">
-                    
-                    <apex:pageBlock >
-                        <apex:outputPanel rendered="{!isJobs}">
-                            <div class="slds-section slds-is-open">
-                                <h3 class="slds-section__title">
-                                    <span class="slds-truncate" title="Section Title">Step 1.</span>
-                                </h3>
-                                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
-                                    <p>To Start syncing the Users and Accounts please click the Start Sync button.</p>
-                                </div>
-                            </div>
-                        </apex:outputPanel>
-                        
-                        <apex:outputPanel rendered="{!!isJobs}">   
-                            <div class="slds-section slds-is-open">
-                                <h3 class="slds-section__title">
-                                    <span class="slds-truncate" title="Section Title">Step 2.</span>
-                                </h3>
-                                
-                                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
-                                    
-                                    <p>Please click below button to Go To xiQ Home tab.</p>
-                                </div>
-                            </div>
-                        </apex:outputPanel>
-                        
-                        <apex:pageblockSection columns="1" rendered="{!IF(OR(batchStatus=='finished',batchStatus=='not_started'),FALSE,TRUE)}">
-                            <apex:pageBlockTable id="prog" value="{!Jobs}" var="item">
-                                <apex:column headerValue="Job Name">
-                                    <apex:outputText value="{!item.Job_Type}"/>
-                                </apex:column>
-                                <apex:column headerValue="{!$ObjectType.AsyncApexJob.fields.Status.label}" >
-                                    <apex:outputText value="{!item.objAsyncApexJob.status}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <apex:image url="/img/loading.gif" id="progressbar_img1" rendered="{!ShowProgressBar}" style="visibility: {!IF(item.isCompleted,'hidden','visible')}"/>
-                                </apex:column>
-                                <apex:column headerValue="Progress (%)"> 
-                                    <div class="prog-border" >
-                                        <apex:outputPanel layout="block" styleClass="{!if(item.Percent>=100,'prog-bar-done','prog-bar')}" style="width: {!item.Percent*2}px;">
-                                            <apex:outputText value="{!item.Percent}" rendered="{!if(item.Percent!=100,true,false)}" />
-                                        </apex:outputPanel> 
-                                    </div>
-                                </apex:column>
-                            </apex:pageBlockTable> 
-                        </apex:pageblockSection>
-                        
-                        <apex:commandButton styleClass="slds-button slds-button_brand" value="Start Sync" action="{!callUserBatch}" rendered="{!IF(AND(isJobs == True, batchStatus == 'not_started'), True, False)}"/>
-                        <apex:actionPoller rerender="f1" interval="5" action="{!updateProgress}" status="counterstatus" enabled="{!isEnable}" />
-                        <apex:commandButton styleClass="slds-button slds-button_brand" value="Get Started"  action="{!xiqHome}" rendered="{!!isJobs}" />
-                        
-                        <br/>
-                        <br/>
-                        <apex:outputLink onclick="openSetupPage()" rendered="{!showSetupPageLink}" >Manage your Licenses Here</apex:outputLink>
-                        <br/>
-                        
-                        
-                    </apex:pageBlock>
-                    
-                    <apex:actionPoller rerender="userTable" action="{!refreshUserTable}" interval="10" enabled="{!userRefreshToggle}" />
-                    
-                    <apex:pageBlock >
-                        
-                        
-                        <apex:outputLabel value="Licensed Users" style="font-weight:800;font-size:15px;" rendered="{!showUser}" ></apex:outputLabel>
-                        <br/>
-                        <br/>
-                        <apex:outputPanel id="userTable" rendered="{!showUser}">
-                            <table id="t1" style="
-                                                  font-family: Arial, Helvetica, sans-serif;
-                                                  font-size: 12px;
-                                                  border-spacing: 0px;
-                                                  border: 1px solid  #e3e6e7;
-                                                  border-collapse: collapse;
-                                                  color: #010107;
-                                                  width: 40%;
-                                                  ">
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid  #e3e6e7;">
-                                        <th style="
-                                                   background-color: #ddd;
-                                                   text-align: left;
-                                                   padding: 10px 5px;
-                                                   border: 1px solid #e3e6e7;
-                                                   font-weight: bold;">Name</th>
-                                        <th style="
-                                                   background-color: #ddd;
-                                                   text-align: left;
-                                                   padding: 10px 5px;
-                                                   border: 1px solid #e3e6e7;
-                                                   font-weight: bold;" >Email</th>
-                                        <th style="
-                                                   background-color: #ddd;
-                                                   text-align: left;
-                                                   padding: 10px 5px;
-                                                   border: 1px solid #e3e6e7;
-                                                   font-weight: bold;" >Licensed</th>
-                                        <th style="
-                                                   background-color: #ddd;
-                                                   text-align: left;
-                                                   padding: 10px 5px;
-                                                   border: 1px solid #e3e6e7;
-                                                   font-weight: bold;" >Reason</th>
-                                    </tr>
-                                    <apex:repeat value="{!uList}" var="u">
-                                        <tr tyle="border-bottom: 1px solid  #e3e6e7;" >
-                                            <td style="text-align: left;padding: 10px 5px;">{!u.Name}</td>
-                                            <td style="text-align: left;padding: 10px 5px;">{!u.Notify_Email__c}</td>
-                                            <td style="text-align: left;padding: 10px 5px;"><apex:outputText rendered="{!NOT(ISNULL(u.Token__c))}"><input type="checkbox" checked="checked" style=" pointer-events: none"/></apex:outputText><apex:outputText rendered="{!ISNULL(u.Token__c)}"><input type="checkbox" style=" pointer-events: none"/></apex:outputText></td>
-                                            <td style="text-align: left;padding: 10px 5px;">{!u.Reason__c}</td>
-                                        </tr>
-                                    </apex:repeat>
-                                </tbody>
-                            </table>
-                        </apex:outputPanel>
-                        
-                    </apex:pageBlock>   
-                    <br/>
-                    
-                    <apex:actionPoller rerender="details" action="{!refreshAccountTable}" interval="10" enabled="{!accRefreshToggle}" />
-                    
-                    <apex:pageBlock id="details" rendered="{!showAcc}"> 
-                        <apex:outputLabel value="Synced Companies" style="font-weight:800;font-size:15px;"></apex:outputLabel>
-                        <br/>
-                        <br/>
-                        <table id="t1" style="
-                                              font-family: Arial, Helvetica, sans-serif;
-                                              font-size: 12px;
-                                              border-spacing: 0px;
-                                              border: 1px solid  #e3e6e7;
-                                              border-collapse: collapse;
-                                              color: #010107;
-                                              width: 60%;">
-                            <tbody>
-                                <tr style="border-bottom: 1px solid  #e3e6e7;" >
-                                    <th style="background-color: #ddd;
-                                               text-align: left;
-                                               padding: 10px 5px;
-                                               border: 1px solid #e3e6e7;
-                                               font-weight: bold;" >Account Name</th>
-                                    <th style="background-color: #ddd;
-                                               text-align: left;
-                                               padding: 10px 5px;
-                                               border: 1px solid #e3e6e7;
-                                               font-weight: bold;">Website</th>
-                                    <th style="background-color: #ddd;
-                                               text-align: left;
-                                               padding: 10px 5px;
-                                               border: 1px solid #e3e6e7;
-                                               font-weight: bold;">Synced</th>
-                                    <th style="background-color:#ddd;
-                                               text-align: left;
-                                               padding: 10px 5px;
-                                               border: 1px solid #e3e6e7;
-                                               font-weight: bold;">Reason</th>
-                                    
-                                </tr>
-                                <apex:repeat id="accTable" value="{!memb}" var="m">             
-                                    <tr style="border-bottom: 1px solid  #e3e6e7;" onClick="openAccRecord('{!m.ID}')">
-                                        <td style="text-align: left;padding: 10px 5px;">{!m.Name}</td>
-                                        <td style="text-align: left;padding: 10px 5px;">{!m.Website}</td>
-                                        <td style="text-align: left;padding: 10px 5px;"><apex:outputText rendered="{!NOT(ISNULL(m.XIQ_Company_ID__c))}"><input type="checkbox" checked="checked" style=" pointer-events: none"/></apex:outputText><apex:outputText rendered="{!ISNULL(m.XIQ_Company_ID__c)}"><input type="checkbox" style=" pointer-events: none"/></apex:outputText></td>
-                                        <td style="text-align: left;padding: 10px 5px;"><apex:outputText value="Website not found" rendered="{!m.Website == Null}" ></apex:outputText><apex:outputText value="Not found on xiQ" rendered="{!m.Website != Null && m.XIQ_Company_ID__c == Null }" ></apex:outputText></td>
-                                        
-                                    </tr>
-                                </apex:repeat>
-                            </tbody>
-                        </table>
-                        <br/>
-                        <br/>
-                        <apex:commandButton value="First" rerender="details" action="{!beginning}" disabled="{!prev}" styleClass="slds-button slds-button_neutral" style="margin:0px 0px 0px 200px" />  
-                        <apex:commandButton value="Previous" rerender="details" action="{!previous}" disabled="{!prev}" styleClass="slds-button slds-button_neutral" />  
-                        <apex:commandButton value="Next" rerender="details" action="{!next}" disabled="{!nxt}" styleClass="slds-button slds-button_neutral" />  
-                        <apex:commandButton value="Last" rerender="details" action="{!end}" disabled="{!nxt}" styleClass="slds-button slds-button_neutral" />
-                        <br/>
-                        <br/>
-                        
-                    </apex:pageBlock>
-                    
-                </apex:form>
-                <apex:outputPanel rendered="{!!isAdmin}">
-                    <div class="demo-only">
-                        <div class="slds-notify_container slds-is-relative">
-                            <div class="slds-notify slds-notify_toast slds-theme_warning" role="alert">
-                                <span class="slds-assistive-text">{!HTMLENCODE(message)}</span>
-                                <span class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top" title="Insufficient privileges">
-                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#error" />
-                                    </svg>
-                                </span>
-                                <div class="slds-notify__content">
-                                    <h2 class="slds-text-heading_small ">{!HTMLENCODE(message)}</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </apex:outputPanel>
+<apex:page
+  title="xiQ Setup"
+  controller="XIQSetupController"
+  tabStyle="XIQ_Setup__tab"
+  showHeader="true"
+  standardStylesheets="false"
+  sidebar="true"
+  applyHtmlTag="true"
+  applyBodyTag="false"
+  docType="html-5.0"
+>
+  <html
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    lang="en"
+  >
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <!-- Import the Design System style sheet -->
+      <apex:slds />
+      <style>
+        #t1 tr:nth-child(even) {
+          background-color: #f2f2f2;
+        }
+        #t1 tr:hover {
+          background-color: #ddd;
+        }
+
+        #t1 tr:hover {
+          background-color: #e3f3ff;
+        }
+        .prog-bar {
+          height: 14px;
+          margin: 3px;
+          padding: 0px;
+          padding-right: 3px;
+          background: #ffa037;
+          text-align: right;
+          font-size: 12px;
+          font-weight: bold;
+          color: #333333;
+        }
+
+        .prog-bar-done {
+          height: 14px;
+          margin: 3px;
+          padding: 0px;
+          padding-right: 3px;
+          background: #c9ddec;
+        }
+
+        .prog-border {
+          width: 209px;
+          background: #fff;
+          border: 1px solid silver;
+          margin: 0px;
+          padding: 0px;
+        }
+        .button {
+          background-color: #4caf50; /* Green */
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          transition-duration: 0.4s;
+          cursor: pointer;
+        }
+        .button1:hover {
+          background-color: #4caf50;
+          color: white;
+        }
+      </style>
+      <script>
+        function openSetupPage() {
+          var packID = "{!packageID}";
+          var currentDomain = "{!urlInstance}";
+          if (isLightningExperienceOrSalesforce1()) {
+            window.open(
+              currentDomain +
+                ".lightning.force.com/lightning/setup/Package/0331H000000hEWr/UserLicenses/" +
+                packID +
+                "/view"
+            );
+          } else {
+            window.open(
+              currentDomain +
+                ".my.salesforce.com/ui/setup/mfpackage/UserLicenses/d?allPackageId=0331H000000hEWr&packageLicenseId=" +
+                packID +
+                "&retURL=%2F0A3%3Fsetupid%3DImportedPackage%26retURL%3D%252Fui%252Fsetup%252FSetup%253Fsetupid%253DStudio"
+            );
+          }
+        }
+        function isLightningExperienceOrSalesforce1() {
+          return typeof sforce != "undefined" && sforce && !!sforce.one;
+        }
+
+        function openAccRecord(ID) {
+          var currentDomain = "{!urlInstance}";
+          var recordID = ID;
+
+          if (isLightningExperienceOrSalesforce1()) {
+            window.open(
+              currentDomain +
+                ".lightning.force.com/lightning/r/Account/" +
+                recordID +
+                "/view"
+            );
+          } else {
+            window.open(currentDomain + ".my.salesforce.com/" + recordID);
+          }
+        }
+      </script>
+    </head>
+    <body>
+      <!-- REQUIRED SLDS WRAPPER -->
+      <div class="slds-scope">
+        <div class="slds-page-header">
+          <div class="slds-media">
+            <div class="slds-media__figure">
+              <span
+                class="slds-icon_container"
+                title="Description of icon when needed"
+              >
+                <!--<svg class="slds-icon slds-page-header__icon" aria-hidden="true">-->
+                <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.XiQ_Logo,'xiqIcSalesforce.png')}" />-->
+                <img
+                  src="{!URLFOR($Resource.xiQ_Logo)}"
+                  width="30"
+                  height="30"
+                />
+                <!--</svg>-->
+              </span>
             </div>
-            <!-- / REQUIRED SLDS WRAPPER -->
-        </body>
-    </html>
-    
+            <div class="slds-media__body">
+              <h1
+                class="slds-page-header__title slds-truncate slds-align-middle"
+                title="Rohde Corp - 80,000 Widgets"
+              >
+                xiQ Setup
+              </h1>
+            </div>
+          </div>
+        </div>
+        <apex:form id="f1" rendered="{!isAdmin}">
+          <apex:pageBlock>
+            <apex:outputPanel rendered="{!isJobs}">
+              <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title">
+                  <span class="slds-truncate" title="Section Title"
+                    >Step 1.</span
+                  >
+                </h3>
+                <div
+                  aria-hidden="false"
+                  class="slds-section__content"
+                  id="expando-unique-id"
+                >
+                  <p>
+                    To Start syncing the Users and Accounts please click the
+                    Start Sync button.
+                  </p>
+                </div>
+              </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!!isJobs}">
+              <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title">
+                  <span class="slds-truncate" title="Section Title"
+                    >Step 2.</span
+                  >
+                </h3>
+
+                <div
+                  aria-hidden="false"
+                  class="slds-section__content"
+                  id="expando-unique-id"
+                >
+                  <p>Please click below button to Go To xiQ Home tab.</p>
+                </div>
+              </div>
+            </apex:outputPanel>
+
+            <apex:pageblockSection
+              columns="1"
+              rendered="{!IF(OR(batchStatus=='finished',batchStatus=='not_started'),FALSE,TRUE)}"
+            >
+              <apex:pageBlockTable id="prog" value="{!Jobs}" var="item">
+                <apex:column headerValue="Job Name">
+                  <apex:outputText value="{!item.Job_Type}" />
+                </apex:column>
+                <apex:column
+                  headerValue="{!$ObjectType.AsyncApexJob.fields.Status.label}"
+                >
+                  <apex:outputText
+                    value="{!item.objAsyncApexJob.status}"
+                  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <apex:image
+                    url="/img/loading.gif"
+                    id="progressbar_img1"
+                    rendered="{!ShowProgressBar}"
+                    style="visibility: {!IF(item.isCompleted,'hidden','visible')}"
+                  />
+                </apex:column>
+                <apex:column headerValue="Progress (%)">
+                  <div class="prog-border">
+                    <apex:outputPanel
+                      layout="block"
+                      styleClass="{!if(item.Percent>=100,'prog-bar-done','prog-bar')}"
+                      style="width: {!item.Percent*2}px;"
+                    >
+                      <apex:outputText
+                        value="{!item.Percent}"
+                        rendered="{!if(item.Percent!=100,true,false)}"
+                      />
+                    </apex:outputPanel>
+                  </div>
+                </apex:column>
+              </apex:pageBlockTable>
+            </apex:pageblockSection>
+
+            <apex:commandButton
+              styleClass="slds-button slds-button_brand"
+              value="Start Sync"
+              action="{!callUserBatch}"
+              rendered="{!IF(AND(isJobs == True, batchStatus == 'not_started'), True, False)}"
+            />
+            <apex:actionPoller
+              rerender="f1"
+              interval="5"
+              action="{!updateProgress}"
+              status="counterstatus"
+              enabled="{!isEnable}"
+            />
+            <apex:commandButton
+              styleClass="slds-button slds-button_brand"
+              value="Get Started"
+              action="{!xiqHome}"
+              rendered="{!!isJobs}"
+            />
+
+            <br />
+            <br />
+            <apex:outputLink
+              onclick="openSetupPage()"
+              rendered="{!showSetupPageLink}"
+              >Manage your Licenses Here</apex:outputLink
+            >
+            <br />
+          </apex:pageBlock>
+
+          <apex:actionPoller
+            rerender="userTable"
+            action="{!refreshUserTable}"
+            interval="10"
+            enabled="{!userRefreshToggle}"
+          />
+
+          <apex:pageBlock>
+            <apex:outputLabel
+              value="Licensed Users"
+              style="font-weight: 800; font-size: 15px"
+              rendered="{!showUser}"
+            ></apex:outputLabel>
+            <br />
+            <br />
+            <apex:outputPanel id="userTable" rendered="{!showUser}">
+              <table
+                id="t1"
+                style="
+                  font-family: Arial, Helvetica, sans-serif;
+                  font-size: 12px;
+                  border-spacing: 0px;
+                  border: 1px solid #e3e6e7;
+                  border-collapse: collapse;
+                  color: #010107;
+                  width: 40%;
+                "
+              >
+                <tbody>
+                  <tr style="border-bottom: 1px solid #e3e6e7">
+                    <th
+                      style="
+                        background-color: #ddd;
+                        text-align: left;
+                        padding: 10px 5px;
+                        border: 1px solid #e3e6e7;
+                        font-weight: bold;
+                      "
+                    >
+                      Name
+                    </th>
+                    <th
+                      style="
+                        background-color: #ddd;
+                        text-align: left;
+                        padding: 10px 5px;
+                        border: 1px solid #e3e6e7;
+                        font-weight: bold;
+                      "
+                    >
+                      Email
+                    </th>
+                    <th
+                      style="
+                        background-color: #ddd;
+                        text-align: left;
+                        padding: 10px 5px;
+                        border: 1px solid #e3e6e7;
+                        font-weight: bold;
+                      "
+                    >
+                      Licensed
+                    </th>
+                    <th
+                      style="
+                        background-color: #ddd;
+                        text-align: left;
+                        padding: 10px 5px;
+                        border: 1px solid #e3e6e7;
+                        font-weight: bold;
+                      "
+                    >
+                      Reason
+                    </th>
+                  </tr>
+                  <apex:repeat value="{!uList}" var="u">
+                    <tr tyle="border-bottom: 1px solid  #e3e6e7;">
+                      <td style="text-align: left; padding: 10px 5px">
+                        {!u.Name}
+                      </td>
+                      <td style="text-align: left; padding: 10px 5px">
+                        {!u.Notify_Email__c}
+                      </td>
+                      <td style="text-align: left; padding: 10px 5px">
+                        <apex:outputText rendered="{!NOT(ISNULL(u.Token__c))}"
+                          ><input
+                            type="checkbox"
+                            checked="checked"
+                            style="pointer-events: none" /></apex:outputText
+                        ><apex:outputText rendered="{!ISNULL(u.Token__c)}"
+                          ><input type="checkbox" style="pointer-events: none"
+                        /></apex:outputText>
+                      </td>
+                      <td style="text-align: left; padding: 10px 5px">
+                        {!u.Reason__c}
+                      </td>
+                    </tr>
+                  </apex:repeat>
+                </tbody>
+              </table>
+            </apex:outputPanel>
+          </apex:pageBlock>
+          <br />
+
+          <apex:actionPoller
+            rerender="details"
+            action="{!refreshAccountTable}"
+            interval="10"
+            enabled="{!accRefreshToggle}"
+          />
+
+          <apex:pageBlock id="details" rendered="{!showAcc}">
+            <apex:outputLabel
+              value="Synced Companies"
+              style="font-weight: 800; font-size: 15px"
+            ></apex:outputLabel>
+            <br />
+            <br />
+            <table
+              id="t1"
+              style="
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                border-spacing: 0px;
+                border: 1px solid #e3e6e7;
+                border-collapse: collapse;
+                color: #010107;
+                width: 60%;
+              "
+            >
+              <tbody>
+                <tr style="border-bottom: 1px solid #e3e6e7">
+                  <th
+                    style="
+                      background-color: #ddd;
+                      text-align: left;
+                      padding: 10px 5px;
+                      border: 1px solid #e3e6e7;
+                      font-weight: bold;
+                    "
+                  >
+                    Account Name
+                  </th>
+                  <th
+                    style="
+                      background-color: #ddd;
+                      text-align: left;
+                      padding: 10px 5px;
+                      border: 1px solid #e3e6e7;
+                      font-weight: bold;
+                    "
+                  >
+                    Website
+                  </th>
+                  <th
+                    style="
+                      background-color: #ddd;
+                      text-align: left;
+                      padding: 10px 5px;
+                      border: 1px solid #e3e6e7;
+                      font-weight: bold;
+                    "
+                  >
+                    Synced
+                  </th>
+                  <th
+                    style="
+                      background-color: #ddd;
+                      text-align: left;
+                      padding: 10px 5px;
+                      border: 1px solid #e3e6e7;
+                      font-weight: bold;
+                    "
+                  >
+                    Reason
+                  </th>
+                </tr>
+                <apex:repeat id="accTable" value="{!memb}" var="m">
+                  <tr
+                    style="border-bottom: 1px solid #e3e6e7"
+                    onClick="openAccRecord('{!m.ID}')"
+                  >
+                    <td style="text-align: left; padding: 10px 5px">
+                      {!m.Name}
+                    </td>
+                    <td style="text-align: left; padding: 10px 5px">
+                      {!m.Website}
+                    </td>
+                    <td style="text-align: left; padding: 10px 5px">
+                      <apex:outputText
+                        rendered="{!NOT(ISNULL(m.XIQ_Company_ID__c))}"
+                        ><input
+                          type="checkbox"
+                          checked="checked"
+                          style="pointer-events: none" /></apex:outputText
+                      ><apex:outputText
+                        rendered="{!ISNULL(m.XIQ_Company_ID__c)}"
+                        ><input type="checkbox" style="pointer-events: none"
+                      /></apex:outputText>
+                    </td>
+                    <td style="text-align: left; padding: 10px 5px">
+                      <apex:outputText
+                        value="Website not found"
+                        rendered="{!m.Website == Null}"
+                      ></apex:outputText
+                      ><apex:outputText
+                        value="Not found on xiQ"
+                        rendered="{!m.Website != Null && m.XIQ_Company_ID__c == Null }"
+                      ></apex:outputText>
+                    </td>
+                  </tr>
+                </apex:repeat>
+              </tbody>
+            </table>
+            <br />
+            <br />
+            <apex:commandButton
+              value="First"
+              rerender="details"
+              action="{!beginning}"
+              disabled="{!prev}"
+              styleClass="slds-button slds-button_neutral"
+              style="margin: 0px 0px 0px 200px"
+            />
+            <apex:commandButton
+              value="Previous"
+              rerender="details"
+              action="{!previous}"
+              disabled="{!prev}"
+              styleClass="slds-button slds-button_neutral"
+            />
+            <apex:commandButton
+              value="Next"
+              rerender="details"
+              action="{!next}"
+              disabled="{!nxt}"
+              styleClass="slds-button slds-button_neutral"
+            />
+            <apex:commandButton
+              value="Last"
+              rerender="details"
+              action="{!end}"
+              disabled="{!nxt}"
+              styleClass="slds-button slds-button_neutral"
+            />
+            <br />
+            <br />
+          </apex:pageBlock>
+        </apex:form>
+        <apex:outputPanel rendered="{!!isAdmin}">
+          <div class="demo-only">
+            <div class="slds-notify_container slds-is-relative">
+              <div
+                class="slds-notify slds-notify_toast slds-theme_warning"
+                role="alert"
+              >
+                <span class="slds-assistive-text">{!HTMLENCODE(message)}</span>
+                <span
+                  class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
+                  title="Insufficient privileges"
+                >
+                  <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                    <use
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#error"
+                    />
+                  </svg>
+                </span>
+                <div class="slds-notify__content">
+                  <h2 class="slds-text-heading_small">
+                    {!HTMLENCODE(message)}
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </apex:outputPanel>
+      </div>
+      <!-- / REQUIRED SLDS WRAPPER -->
+    </body>
+  </html>
 </apex:page>

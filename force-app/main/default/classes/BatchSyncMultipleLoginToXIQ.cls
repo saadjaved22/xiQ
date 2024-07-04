@@ -4,34 +4,33 @@ Saad Javed       | 14/10/2020  	  | Release 1.1
 */
 
 @deprecated
-global without sharing class BatchSyncMultipleLoginToXIQ implements Database.Batchable<sObject>,Database.AllowsCallouts,Database.Stateful{
-    
-    private String sessionId;
-    global Integer totalCount;
-    global Integer successCount;
-    
-    @deprecated
-    // Class constructor
-    // Initialising total Count of records processed and successful records processed.
-    global BatchSyncMultipleLoginToXIQ() {
-        /**
+global without sharing class BatchSyncMultipleLoginToXIQ implements Database.Batchable<sObject>, Database.AllowsCallouts, Database.Stateful {
+  private String sessionId;
+  global Integer totalCount;
+  global Integer successCount;
+
+  @deprecated
+  // Class constructor
+  // Initialising total Count of records processed and successful records processed.
+  global BatchSyncMultipleLoginToXIQ() {
+    /**
         totalCount = 0;
         successCount = 0;
         sessionId = UserInfo.getSessionID();
 		**/
-    }
-    
-    // First two Lists not being used, need to be removed. Cant remove directly.
-    // Need to clone this code without declaring the top 2 lists.
-	@deprecated
-    global List<xiQIncSF1__xiQ_Token__c> userTokenList; //Marked for deletion
-    @deprecated
-    global List<xiQIncSF1__xiQ_Tokens__c> userToknList; // Marked for deletion
-    global List<xiQIncSF1__xiQ_User_Tokens__c> userTokensList;
-    
-    //Querying all Active Users
-    global Database.QueryLocator start(Database.BatchableContext BC){
-        /**
+  }
+
+  // First two Lists not being used, need to be removed. Cant remove directly.
+  // Need to clone this code without declaring the top 2 lists.
+  @deprecated
+  global List<xiQIncSF1__xiQ_Token__c> userTokenList; //Marked for deletion
+  @deprecated
+  global List<xiQIncSF1__xiQ_Tokens__c> userToknList; // Marked for deletion
+  global List<xiQIncSF1__xiQ_User_Tokens__c> userTokensList;
+
+  //Querying all Active Users
+  global Database.QueryLocator start(Database.BatchableContext BC) {
+    /**
         Set<String> userEmailSet = new Set<String>();
         Set<String> userIdSet = new Set<String>();
         List<User> uList = new List<User>();
@@ -66,15 +65,15 @@ global without sharing class BatchSyncMultipleLoginToXIQ implements Database.Bat
         
         // Get list of users with no licenses
         userTokensList = new List<xiQIncSF1__xiQ_User_Tokens__c>();
-		**/	
-        string query = 'Select Id, Name, Email from User WHERE Id IN: userIdSet AND isActive = True LIMIT 10000 ';       
+		**/
+    string query = 'Select Id, Name, Email from User WHERE Id IN: userIdSet AND isActive = True LIMIT 10000 ';
 
-        return Database.getQueryLocator(query);
-    }
-   
-    //Which sync all Active Users from salesforce to XIQ and create the token records.
-    global void execute(Database.BatchableContext BC, List<sObject> scope){
-        /**
+    return Database.getQueryLocator(query);
+  }
+
+  //Which sync all Active Users from salesforce to XIQ and create the token records.
+  global void execute(Database.BatchableContext BC, List<sObject> scope) {
+    /**
         try{
             if(scope.size()>0){
 
@@ -105,12 +104,11 @@ global without sharing class BatchSyncMultipleLoginToXIQ implements Database.Bat
             successCount -= scope.size();
         }
 		**/
-    }
-    
-    // Sending an email when Syncing of 20 records is completed with the total count, Success and Error count.
-    global void finish(Database.BatchableContext BC){
-    	
-        /**
+  }
+
+  // Sending an email when Syncing of 20 records is completed with the total count, Success and Error count.
+  global void finish(Database.BatchableContext BC) {
+    /**
         AsyncApexJob a = [Select Id, Status, CreatedBy.Email from AsyncApexJob where Id =:BC.getJobId()];
         Database.executeBatch(new BatchSyncCompanies(),20); 
         
@@ -139,6 +137,5 @@ global without sharing class BatchSyncMultipleLoginToXIQ implements Database.Bat
         } 
 
 		**/
-        
-    } 
+  }
 }
